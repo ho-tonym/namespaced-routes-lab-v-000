@@ -9,6 +9,7 @@ class ArtistsController < ApplicationController
 
   def new
     @artist = Artist.new
+    redirect_to artists_path if !Preference.last.allow_create_artists
   end
 
   def create
@@ -48,5 +49,9 @@ class ArtistsController < ApplicationController
 
   def artist_params
     params.require(:artist).permit(:name)
+  end
+  
+  def preferences
+    @preferences = Preference.first
   end
 end
